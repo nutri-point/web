@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikHelpers } from 'formik';
 
 // Components
 import {
@@ -14,17 +14,35 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+// Services
+import { GoalService } from 'services';
+
 // Helpers
 import { useStyles } from './styles';
 import { INITIAL_SIGNIN_FORM_VALUES } from './constants';
 import { MaterialRouterLink } from 'helpers';
 import messages from './messages';
+import { SignInFormValues } from './types';
+import { logIn } from 'actions/session';
+import { useDispatch } from 'react-redux';
 
 const SignIn = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  console.log('signin');
+
+  const dispatch = useDispatch();
 
   const classes = useStyles();
+
+  const onSignIn = async (
+    values: SignInFormValues,
+    actions: FormikHelpers<SignInFormValues>,
+  ) => {
+    setIsLoading(true);
+
+    // TODO: handle login
+
+    dispatch(logIn('denis@mail.com', 'password'));
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -35,14 +53,7 @@ const SignIn = (): JSX.Element => {
         <Typography component="h1" variant="h5">
           {messages.signIn}
         </Typography>
-        <Formik
-          initialValues={INITIAL_SIGNIN_FORM_VALUES}
-          onSubmit={(values, actions) => {
-            setIsLoading(true);
-
-            // TODO: handle sign in
-          }}
-        >
+        <Formik initialValues={INITIAL_SIGNIN_FORM_VALUES} onSubmit={onSignIn}>
           {({ values, handleChange, handleBlur }) => (
             <Form className={classes.form}>
               <Grid container spacing={2}>
@@ -97,6 +108,17 @@ const SignIn = (): JSX.Element => {
                   </Button>
                 </Grid>
               </Grid>
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={() => GoalService.getAllGoals()}
+                fullWidth
+              >
+                Get Goals
+              </Button>
 
               <Grid container alignItems="center" direction="column">
                 <Grid item>
