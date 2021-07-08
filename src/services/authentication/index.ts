@@ -11,8 +11,6 @@ export default class AuthenticationService {
     });
 
     AuthenticationService.setAuthTokens(data.accessToken, data.refreshToken);
-
-    console.log(`data`, data);
     return data.user;
   };
 

@@ -39,9 +39,8 @@ const SignIn = (): JSX.Element => {
   ) => {
     setIsLoading(true);
 
-    // TODO: handle login
-
-    dispatch(logIn('denis@mail.com', 'password'));
+    const { email, password } = values;
+    dispatch(logIn(email, password));
   };
 
   return (

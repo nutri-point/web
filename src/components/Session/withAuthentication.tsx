@@ -2,8 +2,8 @@ import { Component as ReactComponent, ComponentType } from 'react';
 import { connect } from 'react-redux';
 
 // Actions
-import { setAuthUser } from 'actions/session';
-import { localStorageKey } from './constants';
+import { setAuthUser, setIsLoadingAuthUser } from 'actions/session';
+import { AuthenticationService, UserService } from 'services';
 
 export type WithAuthenticationProps = typeof mapDispatchToProps;
 
@@ -13,37 +13,23 @@ const withAuthentication = <Props extends IPassTroughProps>(
   Component: ComponentType<Props>,
 ) => {
   class WithAuthentication extends ReactComponent<WithAuthenticationProps> {
-    constructor(props: WithAuthenticationProps) {
-      super(props);
+    async componentDidMount() {
+      const accessToken = AuthenticationService.getAccessToken();
 
-      const storedUser = localStorage.getItem(localStorageKey);
-      if (storedUser) {
-        this.props.setAuthUser(JSON.parse(storedUser));
+      if (accessToken) {
+        this.props.setIsLoadingAuthUser(true);
+        try {
+          const { data } = await UserService.getMyUser();
+          this.props.setAuthUser(data);
+        } catch {
+        } finally {
+          this.props.setIsLoadingAuthUser(false);
+        }
       }
     }
 
-    // TODO
-    componentDidMount() {
-      // this.unsubscribe = this.props.firebase.onAuthUserListener(
-      //   (authUser) => {
-      //     // TODO: Remove all use of localStorage and test
-      //     localStorage.setItem(localStorageKey, JSON.stringify(authUser));
-      //     this.props.setAuthUser(authUser);
-      //   },
-      //   () => {
-      //     localStorage.removeItem(localStorageKey);
-      //     this.props.setAuthUser(null);
-      //   }
-      // );
-    }
-
-    // TODO
-    componentWillUnmount() {
-      // this.unsubscribe && this.unsubscribe();
-    }
-
     render() {
-      const { setAuthUser, ...otherProps } = this.props;
+      const { setAuthUser, setIsLoadingAuthUser, ...otherProps } = this.props;
 
       return <Component {...(otherProps as Props)} />;
     }
@@ -52,6 +38,6 @@ const withAuthentication = <Props extends IPassTroughProps>(
   return connect(null, mapDispatchToProps)(WithAuthentication);
 };
 
-const mapDispatchToProps = { setAuthUser };
+const mapDispatchToProps = { setAuthUser, setIsLoadingAuthUser };
 
 export default withAuthentication;

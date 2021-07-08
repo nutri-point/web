@@ -1,7 +1,7 @@
-import { User } from 'types';
+import { UserGetResponse } from './userResponses';
 
 export interface LogInResponse {
-  readonly user: User;
+  readonly user: UserGetResponse;
   readonly accessToken: string;
   readonly refreshToken: string;
 }

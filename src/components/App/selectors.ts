@@ -7,10 +7,15 @@ export const selectSessionState = (state: RootState) => state.session;
 
 export const selectThemeMode = createSelector(
   selectThemeState,
-  (theme) => theme.mode
+  (theme) => theme.mode,
 );
 
 export const selectAuthUser = createSelector(
   selectSessionState,
-  (session) => session.authUser
+  (session) => session.authUser,
+);
+
+export const selectIsLoadingAuthUser = createSelector(
+  selectSessionState,
+  (session) => session.isLoadingAuthUser,
 );

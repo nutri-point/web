@@ -3,7 +3,7 @@ const messages = {
   emailAddressLabel: 'Email Adresa',
   passwordLabel: 'Zaporka',
   logInButton: 'Prijavi se',
-  forgotPasswordQuestion: 'Zaboravili ste zaporuku?',
+  forgotPasswordQuestion: 'Zaboravili ste zaporku?',
   loggedInSuccessfully: 'Uspješno ste se prijavili!',
 };
 
