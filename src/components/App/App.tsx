@@ -31,7 +31,7 @@ type Props = OwnProps &
 
 const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
   return (
-    <div>
+    <main>
       {isLoadingAuthUser ? (
         <LoadingPage />
       ) : (
@@ -47,7 +47,7 @@ const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
         </Switch>
       )}
       <ToastContainer limit={3} position="bottom-right" />
-    </div>
+    </main>
   );
 };
 

@@ -1,8 +1,8 @@
 const messages = {
-  signIn: 'Prijavi se',
-  emailAddressLabel: 'Email Adresa',
-  passwordLabel: 'Zaporka',
-  logInButton: 'Prijavi se',
+  pageTitle: 'Nutri App',
+  emailAddressLabel: 'Email',
+  passwordLabel: 'Lozinka',
+  signInButton: 'Prijavi se',
   forgotPasswordQuestion: 'Zaboravili ste zaporku?',
   loggedInSuccessfully: 'Uspješno ste se prijavili!',
 };

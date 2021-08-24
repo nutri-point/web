@@ -1,6 +1,6 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeMode } from 'reducers/constants';
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { ThemeOptions } from '@material-ui/core/styles/createTheme';
 
 import colors from './colors';
 
@@ -10,24 +10,21 @@ export const getTheme = (mode: ThemeMode) => {
 
 const commonTheme: ThemeOptions = {
   typography: {
-    fontFamily: ['Arvo', 'Roboto Slab', 'sans-serif'].join(','),
-    h1: {
+    fontFamily: ['Nunito', 'sans-serif'].join(','),
+    button: {
+      textTransform: 'none',
       fontWeight: 700,
-    },
-    h2: {
-      fontWeight: 700,
-    },
-    body2: {
-      fontFamily: ['DM Mono', 'Roboto Mono', 'monospace'].join(','),
-      fontSize: '1rem',
-    },
-    subtitle1: {
-      fontFamily: ['DM Mono', 'Roboto Mono', 'monospace'].join(','),
-      fontSize: '0.9rem',
     },
   },
   shape: {
-    borderRadius: 15,
+    borderRadius: 4,
+  },
+  overrides: {
+    MuiTextField: {
+      root: {
+        borderRadius: 4,
+      },
+    },
   },
 };
 
@@ -69,7 +66,7 @@ declare module '@material-ui/core/styles/createPalette' {
     postCardBorder: PaletteColor;
     link: PaletteColor;
   }
-  // allow configuration using `createMuiTheme`
+  // allow configuration using `createTheme`
   interface PaletteOptions {
     icon?: {
       border?: string;
@@ -81,7 +78,7 @@ declare module '@material-ui/core/styles/createPalette' {
 }
 
 const lightTheme = responsiveFontSizes(
-  createMuiTheme({
+  createTheme({
     palette: {
       type: ThemeMode.Light,
       background: {
@@ -89,7 +86,7 @@ const lightTheme = responsiveFontSizes(
         paper: colors.white,
       },
       primary: {
-        main: colors.yaleBlue,
+        main: colors.black,
       },
       secondary: {
         main: colors.skyBlue,
@@ -122,11 +119,11 @@ const lightTheme = responsiveFontSizes(
       },
     },
     ...commonTheme,
-  })
+  }),
 );
 
 const darkTheme = responsiveFontSizes(
-  createMuiTheme({
+  createTheme({
     palette: {
       type: ThemeMode.Dark,
       background: {
@@ -168,5 +165,5 @@ const darkTheme = responsiveFontSizes(
       },
     },
     ...commonTheme,
-  })
+  }),
 );
