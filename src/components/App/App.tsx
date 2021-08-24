@@ -5,8 +5,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Components
+import { CssBaseline } from '@material-ui/core';
 import SignIn from 'components/SignIn';
 import Home from 'components/Home';
+import NotFound from 'components/NotFound';
+import LoadingPage from 'components/LoadingPage';
 import {
   withAuthentication,
   WithAuthenticationProps,
@@ -15,13 +18,7 @@ import {
 // Helpers
 import { Routes } from 'helpers/constants';
 import { RootState } from 'types';
-import {
-  selectAuthUser,
-  selectIsLoadingAuthUser,
-  selectThemeMode,
-} from './selectors';
-import NotFound from 'components/NotFound';
-import LoadingPage from 'components/LoadingPage';
+import { selectAuthUser, selectIsLoadingAuthUser } from './selectors';
 
 interface OwnProps {}
 
@@ -32,6 +29,11 @@ type Props = OwnProps &
 const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
   return (
     <main>
+      <CssBaseline />
+      {/* <Helmet>
+        <title>Nutri App</title>
+      </Helmet> */}
+
       {isLoadingAuthUser ? (
         <LoadingPage />
       ) : (
@@ -53,7 +55,6 @@ const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    theme: selectThemeMode(state),
     authUser: selectAuthUser(state),
     isLoadingAuthUser: selectIsLoadingAuthUser(state),
   };

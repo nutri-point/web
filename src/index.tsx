@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from 'components/App';
@@ -13,15 +13,13 @@ import { ThemeModeProvider } from 'hooks/ThemeMode';
 const ROOT_COMPONENT = 'root';
 
 ReactDOM.render(
-  <StrictMode>
-    <Provider store={store}>
-      <HashRouter>
-        <ThemeModeProvider>
-          <App />
-        </ThemeModeProvider>
-      </HashRouter>
-    </Provider>
-  </StrictMode>,
+  <Provider store={store}>
+    <HashRouter>
+      <ThemeModeProvider>
+        <App />
+      </ThemeModeProvider>
+    </HashRouter>
+  </Provider>,
   document.getElementById(ROOT_COMPONENT),
 );
 

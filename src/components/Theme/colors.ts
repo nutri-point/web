@@ -5,7 +5,7 @@ const colors = {
   info: '#274C68',
   black: '#000000',
   white: '#FFFFFF',
-  darkSpringGreen: '#157145',
+  darkPastelGreen: '#30C558',
 };
 
 export default colors;

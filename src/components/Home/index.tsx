@@ -16,7 +16,7 @@ const Home = (): JSX.Element => {
           <IconButton
             aria-label="toggle theme"
             color="inherit"
-            onClick={() => toggleTheme()}
+            onClick={toggleTheme}
           >
             {theme === ThemeMode.Light ? <SunIcon /> : <MoonIcon />}
           </IconButton>

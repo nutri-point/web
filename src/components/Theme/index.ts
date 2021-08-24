@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
-import { ThemeMode } from 'reducers/constants';
+import { ThemeMode } from 'hooks/ThemeMode';
 import { ThemeOptions } from '@material-ui/core/styles/createTheme';
 
 import colors from './colors';
@@ -77,7 +77,7 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 }
 
-const lightTheme = responsiveFontSizes(
+export const lightTheme = responsiveFontSizes(
   createTheme({
     palette: {
       type: ThemeMode.Light,
@@ -89,18 +89,21 @@ const lightTheme = responsiveFontSizes(
         main: colors.black,
       },
       secondary: {
-        main: colors.darkSpringGreen,
+        main: colors.darkPastelGreen,
       },
       icon: {
         border: colors.black,
       },
       ...commonPalette,
     },
+    overrides: {
+      ...commonOverrides,
+    },
     ...commonTheme,
   }),
 );
 
-const darkTheme = responsiveFontSizes(
+export const darkTheme = responsiveFontSizes(
   createTheme({
     palette: {
       type: ThemeMode.Dark,
@@ -109,7 +112,7 @@ const darkTheme = responsiveFontSizes(
         // paper: colors.black,
       },
       primary: {
-        main: colors.darkSpringGreen,
+        main: colors.darkPastelGreen,
       },
       secondary: {
         main: colors.black,
@@ -118,6 +121,9 @@ const darkTheme = responsiveFontSizes(
         border: colors.white,
       },
       ...commonPalette,
+    },
+    overrides: {
+      ...commonOverrides,
     },
     ...commonTheme,
   }),
