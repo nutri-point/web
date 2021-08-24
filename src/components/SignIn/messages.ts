@@ -4,7 +4,7 @@ const messages = {
   passwordLabel: 'Lozinka',
   signInButton: 'Prijavi se',
   forgotPasswordQuestion: 'Zaboravili ste zaporku?',
-  loggedInSuccessfully: 'Uspješno ste se prijavili!',
+  logInSuccess: '✔️ Uspješno ste se prijavili!',
 };
 
 export default messages;

@@ -1,3 +1,1 @@
-export default {
-  logInSuccess: '✔️ You are logged in.',
-};
+export default {};

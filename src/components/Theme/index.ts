@@ -83,40 +83,18 @@ const lightTheme = responsiveFontSizes(
       type: ThemeMode.Light,
       background: {
         default: colors.white,
-        paper: colors.white,
+        // paper: colors.white,
       },
       primary: {
         main: colors.black,
       },
       secondary: {
-        main: colors.skyBlue,
+        main: colors.darkSpringGreen,
       },
       icon: {
         border: colors.black,
       },
-      postCard: {
-        main: colors.logoYellow,
-      },
-      postCardBorder: {
-        main: colors.black,
-      },
-      link: {
-        main: colors.yaleBlue,
-      },
       ...commonPalette,
-    },
-    overrides: {
-      ...commonOverrides,
-      MuiOutlinedInput: {
-        notchedOutline: {
-          borderColor: colors.yaleBlue,
-        },
-      },
-      MuiInputLabel: {
-        shrink: {
-          color: colors.yaleBlueTransparent,
-        },
-      },
     },
     ...commonTheme,
   }),
@@ -127,42 +105,19 @@ const darkTheme = responsiveFontSizes(
     palette: {
       type: ThemeMode.Dark,
       background: {
-        // paper: '#000',
-        default: colors.darkJungleGreen,
-        paper: colors.outerSpace,
+        default: colors.black,
+        // paper: colors.black,
       },
       primary: {
-        main: colors.skyBlue,
+        main: colors.darkSpringGreen,
       },
       secondary: {
-        main: colors.yaleBlue,
+        main: colors.black,
       },
       icon: {
         border: colors.white,
       },
-      postCard: {
-        main: colors.yaleBlue,
-      },
-      postCardBorder: {
-        main: colors.white,
-      },
-      link: {
-        main: colors.logoYellow,
-      },
       ...commonPalette,
-    },
-    overrides: {
-      ...commonOverrides,
-      MuiOutlinedInput: {
-        notchedOutline: {
-          borderColor: colors.skyBlue,
-        },
-      },
-      MuiInputLabel: {
-        outlined: {
-          color: colors.skyBlueTransparent,
-        },
-      },
     },
     ...commonTheme,
   }),

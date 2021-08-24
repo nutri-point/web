@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { toast } from 'react-toastify';
 
 // Components
 import {
@@ -11,30 +13,49 @@ import {
 } from '@material-ui/core';
 import FilledTextField from 'components/FilledTextField';
 
+// Redux
+import { logIn, setSignInStatus } from 'actions/session';
+import {
+  selectSignInMessage,
+  selectSignInStatus,
+} from 'components/Session/selectors';
+
 // Helpers
 import { useStyles } from './styles';
 import { INITIAL_SIGNIN_FORM_VALUES } from './constants';
 import { MaterialRouterLink } from 'helpers';
 import messages from './messages';
+
+// Types
 import { SignInFormValues } from './types';
-import { logIn } from 'actions/session';
-import { useDispatch } from 'react-redux';
+import { SignInStatus } from 'actions/types';
 
 const SignIn = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const dispatch = useDispatch();
+  const signInStatus = useSelector(selectSignInStatus);
+  const signInMessage = useSelector(selectSignInMessage);
+
+  const isLoading = signInStatus === SignInStatus.Loading;
 
   const classes = useStyles();
 
   const onSignIn = async (values: SignInFormValues) => {
-    setIsLoading(true);
-
     const { email, password } = values;
 
     // TODO: handle errors
     dispatch(logIn(email, password));
   };
+
+  useEffect(() => {
+    switch (signInStatus) {
+      case SignInStatus.Failed:
+        toast.error(`❌ ${signInMessage}`);
+        dispatch(setSignInStatus(SignInStatus.Idle));
+        break;
+      case SignInStatus.Succeeded:
+        toast.success(messages.logInSuccess);
+    }
+  }, [signInStatus]);
 
   return (
     <Grid container className={classes.root}>
@@ -114,7 +135,7 @@ const SignIn = (): JSX.Element => {
                     >
                       {isLoading ? (
                         <CircularProgress
-                          color="secondary"
+                          color="primary"
                           size={24}
                           thickness={6}
                         />

@@ -1,12 +1,11 @@
 import { LOG_IN, SIGN_OUT } from 'actions';
-import { clearAuthUser, setAuthUser } from 'actions/session';
+import { clearAuthUser, setAuthUser, setSignInStatus } from 'actions/session';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { AuthenticationService } from 'services';
 import { logIn as logInAction } from 'actions/session';
-import { toast } from 'react-toastify';
 import { getErrorMessage } from 'utils';
-import { messages } from 'const';
 import { UserGetResponse } from 'services/responses';
+import { SignInStatus } from 'actions/types';
 
 export function* logInWatcher() {
   yield takeLatest(LOG_IN, logInFlow);
@@ -14,17 +13,19 @@ export function* logInWatcher() {
 
 function* logInFlow(action: ReturnType<typeof logInAction>) {
   try {
+    yield put(setSignInStatus(SignInStatus.Loading));
+
     const { email, password } = action.payload;
     const user: UserGetResponse = yield call(
       AuthenticationService.logIn,
       email,
       password,
     );
+    yield put(setSignInStatus(SignInStatus.Succeeded));
     yield put(setAuthUser(user));
-
-    toast.success(messages.logInSuccess);
   } catch (error) {
-    toast.error(`❌ ${getErrorMessage(error)}`);
+    const message = getErrorMessage(error);
+    yield put(setSignInStatus(SignInStatus.Failed, message));
   }
 }
 
