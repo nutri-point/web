@@ -86,10 +86,10 @@ export const lightTheme = responsiveFontSizes(
         // paper: colors.white,
       },
       primary: {
-        main: colors.black,
+        main: colors.red,
       },
       secondary: {
-        main: colors.darkPastelGreen,
+        main: colors.green,
       },
       icon: {
         border: colors.black,
@@ -112,10 +112,10 @@ export const darkTheme = responsiveFontSizes(
         // paper: colors.black,
       },
       primary: {
-        main: colors.darkPastelGreen,
+        main: colors.purple,
       },
       secondary: {
-        main: colors.black,
+        main: colors.blue,
       },
       icon: {
         border: colors.white,

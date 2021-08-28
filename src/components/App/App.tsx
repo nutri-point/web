@@ -44,7 +44,7 @@ const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
           )}
 
           <Route path={Routes.SIGN_IN} component={SignIn} />
-          <Route exact path={Routes.HOME} component={Home} />
+          <Route path={Routes.HOME} component={Home} />
           <Route component={NotFound} />
         </Switch>
       )}
