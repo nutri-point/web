@@ -27,7 +27,6 @@ type Props = OwnProps &
   WithAuthenticationProps;
 
 const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
-  console.log(`authUser`, authUser);
   return (
     <main>
       <CssBaseline />

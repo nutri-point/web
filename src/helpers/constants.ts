@@ -4,4 +4,5 @@ export const Routes = {
   USERS: '/users',
   FOOD_MENUS: '/menus',
   MEALS: '/meals',
+  MEMBERSHIP: '/membership',
 };

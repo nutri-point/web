@@ -3,3 +3,9 @@ export const ApiRoutes = {
   Goal: 'goal',
   User: 'user',
 };
+
+export enum Role {
+  Guest = 1,
+  Member = 2,
+  Admin = 3,
+}

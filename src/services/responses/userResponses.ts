@@ -9,11 +9,5 @@ export interface UserGetResponse {
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly isActive: boolean;
-  readonly role?: RoleGetResponse;
-}
-
-export interface RoleGetResponse {
-  readonly id: number;
-  readonly name: string;
-  readonly rank: number;
+  readonly roleId: number;
 }
