@@ -21,7 +21,7 @@ export type SessionAction = ActionType<typeof sessionActions>;
 
 const initialState: SessionState = {
   authUser: null,
-  isLoadingAuthUser: false,
+  isLoadingAuthUser: true,
   signInStatus: SignInStatus.Idle,
 };
 

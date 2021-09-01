@@ -19,5 +19,8 @@ export const useStyles = makeStyles((theme: Theme) => {
       backgroundColor: `${alpha(theme.palette.primary.main, 0.15)}`,
       border: `1px solid ${alpha(theme.palette.primary.main, isDark ? 1 : 0)}`,
     },
+    link: {
+      textDecoration: 'none',
+    },
   });
 });

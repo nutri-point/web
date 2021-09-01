@@ -19,7 +19,7 @@ const MenuItem = ({ icon: Icon, title, path }: Props) => {
   return (
     <Grid container justifyContent="center" className={classes.container}>
       <Grid item xs={8}>
-        <Link to={path}>
+        <Link to={path} className={classes.link}>
           <Button
             fullWidth
             className={classnames(classes.button, {

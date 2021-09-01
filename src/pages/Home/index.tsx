@@ -3,13 +3,15 @@ import { Route, Switch } from 'react-router-dom';
 
 import ThemeToggle from 'components/ThemeToggle';
 import MenuButton from 'components/MenuButton';
-import NotFound from 'components/NotFound';
+import Membership from 'pages/Membership';
+import NotFound from 'pages/NotFound';
 
 // Icons
 import {
   RiGroupLine as UsersIcon,
   RiBookOpenLine as FoodMenuIcon,
   RiRestaurant2Line as MealIcon,
+  RiMedalLine as MembershipIcon,
 } from 'react-icons/ri';
 
 // Helpers
@@ -49,18 +51,29 @@ const Home = (): JSX.Element => {
             icon={FoodMenuIcon}
           />
           <MenuButton path={Routes.MEALS} title="Meals" icon={MealIcon} />
+          <MenuButton
+            path={Routes.MEMBERSHIP}
+            title="Membership"
+            icon={MembershipIcon}
+          />
         </Grid>
       </Grid>
-      <Grid item xs={8}>
+      <div style={{ flexGrow: 1 }}>
         <ThemeToggle />
 
         <Switch>
-          <Route exact path={Routes.USERS} component={() => <div />} />
-          <Route exact path={Routes.FOOD_MENUS} component={() => <div />} />
-          <Route exact path={Routes.MEALS} component={() => <div />} />
+          <Route exact path={Routes.HOME} component={() => <div>Home</div>} />
+          <Route exact path={Routes.USERS} component={() => <div>Users</div>} />
+          <Route
+            exact
+            path={Routes.FOOD_MENUS}
+            component={() => <div>Menus</div>}
+          />
+          <Route exact path={Routes.MEALS} component={() => <div>Meals</div>} />
+          <Route exact path={Routes.MEMBERSHIP} component={Membership} />
           <Route component={NotFound} />
         </Switch>
-      </Grid>
+      </div>
     </Grid>
   );
 };

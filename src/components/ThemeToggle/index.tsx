@@ -1,5 +1,5 @@
 import { IconButton, Tooltip, Zoom } from '@material-ui/core';
-import { HiSun as SunIcon, HiOutlineMoon as MoonIcon } from 'react-icons/hi';
+import { RiSunLine as SunIcon, RiMoonFill as MoonIcon } from 'react-icons/ri';
 
 import { ThemeMode, useThemeMode } from 'hooks/ThemeMode';
 
