@@ -1,4 +1,6 @@
-import { createStyles, Theme, makeStyles } from '@material-ui/core';
+import { Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import { ThemeMode } from 'hooks/ThemeMode';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -9,7 +11,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       backgroundImage: 'url(https://source.unsplash.com/featured/?nutrition)',
       backgroundRepeat: 'no-repeat',
       backgroundColor:
-        theme.palette.type === 'light'
+        theme.palette.mode === ThemeMode.Light
           ? theme.palette.grey[50]
           : theme.palette.grey[900],
       backgroundSize: 'cover',

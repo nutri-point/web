@@ -8,24 +8,20 @@ import {
   Tabs,
   Theme,
   useMediaQuery,
-} from '@material-ui/core';
+} from '@mui/material';
 import UsersList from './UsersList';
 
 import { UserGetResponse, UserService } from 'services';
 import { Role } from 'services/constants';
 
 import { useStyles } from './styles';
-
-const tabsMap = {
-  members: { id: 0, name: 'Members' },
-  guests: { id: 1, name: 'Guests' },
-};
+import { TabsEnum, TabValues } from './constants';
 
 const Membership = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [guests, setGuests] = useState<UserGetResponse[]>([]);
   const [members, setMembers] = useState<UserGetResponse[]>([]);
-  const [tabValue, setTabValue] = useState(tabsMap.members.id);
+  const [tabValue, setTabValue] = useState<TabsEnum>(TabsEnum.Members);
 
   const classes = useStyles();
 
@@ -60,8 +56,7 @@ const Membership = () => {
     return { members, guests };
   };
 
-  const onTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    console.log(`newValue`, newValue);
+  const onTabChange = (event: React.ChangeEvent<{}>, newValue: TabsEnum) => {
     setTabValue(newValue);
   };
 
@@ -69,11 +64,17 @@ const Membership = () => {
     fetchUsers();
   }, []);
 
-  const loadingIndicator = <CircularProgress size="2rem" thickness={5} />;
-
   const selectedUsers = useMemo(
-    () => (tabValue === tabsMap.members.id ? members : guests),
+    () => (tabValue === TabsEnum.Members ? members : guests),
     [tabValue, members, guests],
+  );
+
+  const loadingIndicator = (
+    <Grid container justifyContent="center" style={{ paddingTop: '2rem' }}>
+      <Grid item>
+        <CircularProgress size="3rem" thickness={5} />
+      </Grid>
+    </Grid>
   );
 
   return (
@@ -82,21 +83,28 @@ const Membership = () => {
         <Tabs
           value={tabValue}
           onChange={onTabChange}
-          indicatorColor="primary"
           variant={isSmallScreen ? 'fullWidth' : 'standard'}
           centered
         >
-          {Object.values(tabsMap).map((tab) => (
+          {TabValues.map((tab) => (
             <Tab
+              key={tab.value}
               className={classnames(classes.tab, {
                 [classes.bigTab]: !isSmallScreen,
               })}
-              value={tab.id}
-              label={tab.name}
+              value={tab.value}
+              label={tab.label}
+              icon={<tab.icon size={25} />}
             />
           ))}
         </Tabs>
-        <UsersList users={selectedUsers} />
+        {isLoading ? (
+          loadingIndicator
+        ) : (
+          <Grid item xs={12}>
+            <UsersList users={selectedUsers} />
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

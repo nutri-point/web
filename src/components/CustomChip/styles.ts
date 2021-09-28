@@ -4,7 +4,14 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      height: '100vh',
+      fontWeight: 700,
+      borderRadius: 20,
+      padding: '0.5rem 1rem',
+    },
+    label: {
+      fontWeight: 700,
+      fontSize: '0.8rem',
+      paddingLeft: theme.spacing(),
     },
   }),
 );

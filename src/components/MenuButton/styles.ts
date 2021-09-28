@@ -1,7 +1,9 @@
-import { createStyles, Theme, makeStyles, alpha } from '@material-ui/core';
+import { Theme, alpha } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import { ThemeMode } from 'hooks/ThemeMode';
 
 export const useStyles = makeStyles((theme: Theme) => {
-  const isDark = theme.palette.type === 'dark';
+  const isDark = theme.palette.mode === ThemeMode.Dark;
 
   return createStyles({
     container: {

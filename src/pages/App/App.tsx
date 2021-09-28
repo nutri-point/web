@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Components
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline } from '@mui/material';
 import SignIn from 'pages/SignIn';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
@@ -27,6 +27,7 @@ type Props = OwnProps &
   WithAuthenticationProps;
 
 const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
+  console.log(`authUser`, Routes.SIGN_IN);
   return (
     <main>
       <CssBaseline />
@@ -39,9 +40,10 @@ const App = ({ authUser, isLoadingAuthUser }: Props): JSX.Element => {
       ) : (
         <Switch>
           {authUser && <Redirect from={Routes.SIGN_IN} to={Routes.HOME} />}
-          {!authUser && <Redirect to={Routes.SIGN_IN} />}
 
           <Route path={Routes.SIGN_IN} component={SignIn} />
+          {!authUser && <Redirect to={Routes.SIGN_IN} />}
+
           <Route path={Routes.HOME} component={Home} />
           <Route component={NotFound} />
         </Switch>

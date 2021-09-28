@@ -25,6 +25,8 @@ const withAuthentication = <Props extends IPassTroughProps>(
         } finally {
           this.props.setIsLoadingAuthUser(false);
         }
+      } else {
+        this.props.setIsLoadingAuthUser(false);
       }
     }
 

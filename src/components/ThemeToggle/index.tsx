@@ -1,4 +1,4 @@
-import { IconButton, Tooltip, Zoom } from '@material-ui/core';
+import { IconButton, Tooltip, Zoom } from '@mui/material';
 import { RiSunLine as SunIcon, RiMoonFill as MoonIcon } from 'react-icons/ri';
 
 import { ThemeMode, useThemeMode } from 'hooks/ThemeMode';

@@ -1,6 +1,6 @@
-import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { ThemeMode } from 'hooks/ThemeMode';
-import { ThemeOptions } from '@material-ui/core/styles/createTheme';
+import { ThemeOptions } from '@mui/material/styles/createTheme';
 
 import colors from './colors';
 
@@ -11,6 +11,13 @@ export const getTheme = (mode: ThemeMode) => {
 const commonTheme: ThemeOptions = {
   typography: {
     fontFamily: ['Nunito', 'sans-serif'].join(','),
+    h2: {
+      fontSize: '1.5rem',
+      fontWeight: 900,
+    },
+    body2: {
+      color: '#707070',
+    },
     button: {
       textTransform: 'none',
       fontWeight: 700,
@@ -19,14 +26,18 @@ const commonTheme: ThemeOptions = {
   shape: {
     borderRadius: 4,
   },
-  overrides: {
+  components: {
     MuiTextField: {
-      root: {
-        borderRadius: 4,
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+        },
       },
     },
   },
 };
+
+const defaultTheme = createTheme();
 
 const commonPalette = {
   success: {
@@ -41,46 +52,32 @@ const commonPalette = {
   info: {
     main: colors.info,
   },
+  neutral: defaultTheme.palette.augmentColor({
+    color: { main: colors.lightBlue },
+    name: 'neutral',
+  }),
 };
 
 const commonOverrides = {
   MuiSvgIcon: {
-    fontSizeLarge: {
-      fontSize: '3rem',
-    },
-    fontSizeInherit: {
-      fontSize: '2rem',
-    },
-    fontSizeSmall: {
-      fontSize: '1rem',
+    styleOverrides: {
+      fontSizeLarge: {
+        fontSize: '3rem',
+      },
+      fontSizeInherit: {
+        fontSize: '2rem',
+      },
+      fontSizeSmall: {
+        fontSize: '1rem',
+      },
     },
   },
 };
 
-declare module '@material-ui/core/styles/createPalette' {
-  interface Palette {
-    icon: {
-      border: string;
-    };
-    postCard: PaletteColor;
-    postCardBorder: PaletteColor;
-    link: PaletteColor;
-  }
-  // allow configuration using `createTheme`
-  interface PaletteOptions {
-    icon?: {
-      border?: string;
-    };
-    postCard?: PaletteColorOptions;
-    postCardBorder?: PaletteColorOptions;
-    link?: PaletteColorOptions;
-  }
-}
-
 export const lightTheme = responsiveFontSizes(
   createTheme({
     palette: {
-      type: ThemeMode.Light,
+      mode: ThemeMode.Light,
       background: {
         default: colors.white,
         // paper: colors.white,
@@ -91,12 +88,12 @@ export const lightTheme = responsiveFontSizes(
       secondary: {
         main: colors.green,
       },
-      icon: {
-        border: colors.black,
-      },
+      // icon: {
+      //   border: colors.black,
+      // },
       ...commonPalette,
     },
-    overrides: {
+    components: {
       ...commonOverrides,
     },
     ...commonTheme,
@@ -106,7 +103,7 @@ export const lightTheme = responsiveFontSizes(
 export const darkTheme = responsiveFontSizes(
   createTheme({
     palette: {
-      type: ThemeMode.Dark,
+      mode: ThemeMode.Dark,
       background: {
         default: colors.black,
         // paper: colors.black,
@@ -117,12 +114,12 @@ export const darkTheme = responsiveFontSizes(
       secondary: {
         main: colors.blue,
       },
-      icon: {
-        border: colors.white,
-      },
+      // icon: {
+      //   border: colors.white,
+      // },
       ...commonPalette,
     },
-    overrides: {
+    components: {
       ...commonOverrides,
     },
     ...commonTheme,

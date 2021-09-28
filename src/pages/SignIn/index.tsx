@@ -10,7 +10,7 @@ import {
   Button,
   Link,
   CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 import FilledTextField from 'components/FilledTextField';
 
 // Redux
@@ -152,6 +152,7 @@ const SignIn = (): JSX.Element => {
                       component={MaterialRouterLink}
                       to="/resetPassword"
                       variant="body2"
+                      underline="hover"
                     >
                       {messages.forgotPasswordQuestion}
                     </Link>

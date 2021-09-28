@@ -1,5 +1,5 @@
 import { IconType } from 'react-icons';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid } from '@mui/material';
 import { useStyles } from './styles';
 import { Link, useLocation } from 'react-router-dom';
 import classnames from 'classnames';

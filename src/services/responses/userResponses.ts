@@ -8,6 +8,7 @@ export interface UserGetResponse {
   readonly dateOfBirth: Date;
   readonly createdAt: Date;
   readonly updatedAt: Date;
+  readonly memberSince?: Date | null;
   readonly isActive: boolean;
   readonly roleId: number;
 }

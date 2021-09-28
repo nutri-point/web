@@ -6,9 +6,12 @@ const colors = {
   black: '#000000',
   white: '#FFFFFF',
   green: '#30C558',
-  purple: '#673ab7',
+  purple: '#9867f0',
   blue: '#90caf9',
   red: '#f44336',
+  lightBlue: '#4275f5',
+  lightGreen: '#00abab',
+  orange: '#ef7b45',
 };
 
 export default colors;
