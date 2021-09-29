@@ -1,4 +1,4 @@
-export enum SignInStatus {
+export enum ActionStatus {
   Idle,
   Loading,
   Succeeded,

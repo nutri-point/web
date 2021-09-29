@@ -1,13 +1,14 @@
 import {
   Button,
-  Chip,
+  CircularProgress,
   Grid,
   Paper,
   Theme,
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { UserGetResponse } from 'services';
+import { toast } from 'react-toastify';
+import { UserGetResponse, UserService } from 'services';
 
 import messages from './messages';
 
@@ -24,22 +25,57 @@ import { Role } from 'services/constants';
 import { formatDate, getAge } from 'helpers';
 import CustomChip from 'components/CustomChip';
 import colors from 'components/Theme/colors';
+import { useState } from 'react';
+import axios from 'axios';
 
 interface Props {
   readonly user: UserGetResponse;
+  readonly onRoleChange: () => void;
 }
 
-const UserCard = ({ user }: Props) => {
+const UserCard = ({ user, onRoleChange }: Props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const classes = useCardStyles();
 
-  const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('sm'),
+  const isSmallerScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('lg'),
   );
 
   const age = getAge(user.dateOfBirth);
   const isMember = user.roleId === Role.Member;
 
-  const alignItems = isSmallScreen ? 'center' : undefined;
+  const alignItems = isSmallerScreen ? 'center' : undefined;
+
+  const onGrantAccess = async () => {
+    setIsSubmitting(true);
+
+    try {
+      await UserService.setMemberRole(user.id);
+      onRoleChange();
+      toast.success('Member access granted.');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const onRevokeAccess = async () => {
+    setIsSubmitting(true);
+    try {
+      await UserService.setGuestRole(user.id);
+      onRoleChange();
+      toast.warning('Member access revoked.');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Paper variant="outlined" className={classes.card}>
@@ -83,8 +119,19 @@ const UserCard = ({ user }: Props) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} className={classes.item}>
-          <Typography variant="body2">{user.email}</Typography>
+
+        <Grid
+          container
+          className={classes.item}
+          direction="column"
+          alignItems={alignItems}
+        >
+          <Grid item>
+            <Typography>{messages.email}</Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="body2">{user.email}</Typography>
+          </Grid>
         </Grid>
 
         <Grid
@@ -103,8 +150,13 @@ const UserCard = ({ user }: Props) => {
           </Grid>
         </Grid>
         {isMember && user.memberSince && (
-          <Grid container className={classes.item}>
-            <Grid item xs={12}>
+          <Grid
+            container
+            className={classes.item}
+            direction="column"
+            alignItems={alignItems}
+          >
+            <Grid item>
               <Typography>{messages.memberSince}</Typography>
             </Grid>
             <Grid item>
@@ -116,24 +168,34 @@ const UserCard = ({ user }: Props) => {
         )}
       </Grid>
       <Grid container justifyContent="flex-end">
-        <Grid item xs={isSmallScreen ? 12 : undefined}>
+        <Grid item xs={isSmallerScreen ? 12 : undefined}>
           {isMember ? (
             <Button
               variant="outlined"
               color="error"
               startIcon={<RevokeAccessIcon />}
-              fullWidth={isSmallScreen}
+              fullWidth={isSmallerScreen}
+              onClick={onRevokeAccess}
             >
-              {messages.revokeAccess}
+              {isSubmitting ? (
+                <CircularProgress color="error" size={24} thickness={6} />
+              ) : (
+                messages.revokeAccess
+              )}
             </Button>
           ) : (
             <Button
-              variant="contained"
+              variant="outlined"
               color="success"
               startIcon={<GiveAccessIcon />}
-              fullWidth={isSmallScreen}
+              fullWidth={isSmallerScreen}
+              onClick={onGrantAccess}
             >
-              {messages.giveAccess}
+              {isSubmitting ? (
+                <CircularProgress color="success" size={24} thickness={6} />
+              ) : (
+                messages.giveAccess
+              )}
             </Button>
           )}
         </Grid>

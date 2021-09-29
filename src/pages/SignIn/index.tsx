@@ -28,14 +28,14 @@ import messages from './messages';
 
 // Types
 import { SignInFormValues } from './types';
-import { SignInStatus } from 'actions/types';
+import { ActionStatus } from 'actions/types';
 
 const SignIn = (): JSX.Element => {
   const dispatch = useDispatch();
   const signInStatus = useSelector(selectSignInStatus);
   const signInMessage = useSelector(selectSignInMessage);
 
-  const isLoading = signInStatus === SignInStatus.Loading;
+  const isLoading = signInStatus === ActionStatus.Loading;
 
   const classes = useStyles();
 
@@ -48,14 +48,14 @@ const SignIn = (): JSX.Element => {
 
   useEffect(() => {
     switch (signInStatus) {
-      case SignInStatus.Failed:
+      case ActionStatus.Failed:
         toast.error(`❌ ${signInMessage}`);
-        dispatch(setSignInStatus(SignInStatus.Idle));
+        dispatch(setSignInStatus(ActionStatus.Idle));
         break;
-      case SignInStatus.Succeeded:
+      case ActionStatus.Succeeded:
         toast.success(messages.logInSuccess);
     }
-  }, [signInStatus]);
+  }, [signInStatus, dispatch, signInMessage]);
 
   return (
     <Grid container className={classes.root}>

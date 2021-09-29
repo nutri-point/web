@@ -6,16 +6,17 @@ import { useListStyles } from './styles';
 
 interface Props {
   readonly users: UserGetResponse[];
+  readonly onRoleChange: () => void;
 }
 
-const UsersList = ({ users }: Props) => {
+const UsersList = ({ users, onRoleChange }: Props) => {
   const classes = useListStyles();
 
   return (
-    <Grid container justifyContent="center" className={classes.container}>
+    <Grid container className={classes.container}>
       {users.map((user) => (
-        <Grid item key={user.id} xs={12} md={6}>
-          <UserCard user={user} />
+        <Grid item className={classes.card} key={user.id} xs={12} md={6}>
+          <UserCard user={user} onRoleChange={onRoleChange} />
         </Grid>
       ))}
     </Grid>

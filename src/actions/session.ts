@@ -7,7 +7,7 @@ import {
   SET_IS_LOADING_AUTH_USER,
   SET_SIGN_IN_STATUS,
 } from './constants';
-import { SignInStatus } from './types';
+import { ActionStatus } from './types';
 
 export const logIn = createAction(LOG_IN, (action) => {
   return (email: string, password: string) => action({ email, password });
@@ -27,6 +27,6 @@ export const setIsLoadingAuthUser = createAction(
 export const clearAuthUser = createAction(CLEAR_AUTH_USER);
 
 export const setSignInStatus = createAction(SET_SIGN_IN_STATUS, (action) => {
-  return (status: SignInStatus, message?: string) =>
+  return (status: ActionStatus, message?: string) =>
     action({ status, message });
 });

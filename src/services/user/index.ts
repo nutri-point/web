@@ -7,6 +7,12 @@ export default class UserService {
 
   static getAll = () => api.get<UserGetResponse[]>(ApiRoutes.User);
 
-  static updateUserRole = (userId: number, role: Role) =>
-    api.put(`${ApiRoutes.User}/${userId}/${role}`);
+  static updateUserRole = (userId: string, roleId: Role) =>
+    api.put(`${ApiRoutes.User}/${userId}/role`, { roleId });
+
+  static setMemberRole = (userId: string) =>
+    UserService.updateUserRole(userId, Role.Member);
+
+  static setGuestRole = (userId: string) =>
+    UserService.updateUserRole(userId, Role.Guest);
 }

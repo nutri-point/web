@@ -8,12 +8,12 @@ import {
 } from 'actions/constants';
 import { sessionActions } from 'actions';
 import { UserGetResponse as User } from 'services/responses';
-import { SignInStatus } from 'actions/types';
+import { ActionStatus } from 'actions/types';
 
 export type SessionState = {
   authUser: User | null;
   isLoadingAuthUser: boolean;
-  signInStatus: SignInStatus;
+  signInStatus: ActionStatus;
   signInMessage?: string;
 };
 
@@ -22,7 +22,7 @@ export type SessionAction = ActionType<typeof sessionActions>;
 const initialState: SessionState = {
   authUser: null,
   isLoadingAuthUser: true,
-  signInStatus: SignInStatus.Idle,
+  signInStatus: ActionStatus.Idle,
 };
 
 export default createReducer<SessionState, SessionAction>(initialState)

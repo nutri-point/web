@@ -44,5 +44,8 @@ export const useListStyles = makeStyles((theme: Theme) =>
     container: {
       padding: '2rem',
     },
+    card: {
+      padding: '2rem',
+    },
   }),
 );

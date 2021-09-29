@@ -5,7 +5,8 @@ import { AuthenticationService } from 'services';
 import { logIn as logInAction } from 'actions/session';
 import { getErrorMessage } from 'utils';
 import { UserGetResponse } from 'services/responses';
-import { SignInStatus } from 'actions/types';
+import { ActionStatus } from 'actions/types';
+import axios from 'axios';
 
 export function* logInWatcher() {
   yield takeLatest(LOG_IN, logInFlow);
@@ -13,7 +14,7 @@ export function* logInWatcher() {
 
 function* logInFlow(action: ReturnType<typeof logInAction>) {
   try {
-    yield put(setSignInStatus(SignInStatus.Loading));
+    yield put(setSignInStatus(ActionStatus.Loading));
 
     const { email, password } = action.payload;
     const user: UserGetResponse = yield call(
@@ -21,11 +22,13 @@ function* logInFlow(action: ReturnType<typeof logInAction>) {
       email,
       password,
     );
-    yield put(setSignInStatus(SignInStatus.Succeeded));
+    yield put(setSignInStatus(ActionStatus.Succeeded));
     yield put(setAuthUser(user));
   } catch (error) {
-    const message = getErrorMessage(error);
-    yield put(setSignInStatus(SignInStatus.Failed, message));
+    if (axios.isAxiosError(error)) {
+      const message = getErrorMessage(error);
+      yield put(setSignInStatus(ActionStatus.Failed, message));
+    }
   }
 }
 

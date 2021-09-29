@@ -6,3 +6,5 @@ export const Routes = {
   MEALS: '/meals',
   MEMBERSHIP: '/membership',
 };
+
+export const DEFAULT_DATE_FORMAT = 'DD.MM.YYYY.';

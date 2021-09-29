@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 
 import {
@@ -29,22 +29,11 @@ const Membership = () => {
     theme.breakpoints.down('sm'),
   );
 
-  const fetchUsers = async () => {
-    setIsLoading(true);
-
-    const { data } = await UserService.getAll();
-    const { members, guests } = getByRole(data);
-
-    setMembers(members);
-    setGuests(guests);
-
-    setIsLoading(false);
-  };
-
-  const getByRole = (users: UserGetResponse[]) => {
+  const getByRole = useCallback((users: UserGetResponse[]) => {
     const members: UserGetResponse[] = [];
     const guests: UserGetResponse[] = [];
 
+    // eslint-disable-next-line array-callback-return
     users.map((user) => {
       if (user.roleId === Role.Guest) {
         guests.push(user);
@@ -54,7 +43,19 @@ const Membership = () => {
     });
 
     return { members, guests };
-  };
+  }, []);
+
+  const fetchUsers = useCallback(async () => {
+    setIsLoading(true);
+
+    const { data } = await UserService.getAll();
+    const { members, guests } = getByRole(data);
+
+    setMembers(members);
+    setGuests(guests);
+
+    setIsLoading(false);
+  }, [getByRole]);
 
   const onTabChange = (event: React.ChangeEvent<{}>, newValue: TabsEnum) => {
     setTabValue(newValue);
@@ -62,7 +63,11 @@ const Membership = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
+
+  const onRoleChange = () => {
+    fetchUsers();
+  };
 
   const selectedUsers = useMemo(
     () => (tabValue === TabsEnum.Members ? members : guests),
@@ -102,7 +107,7 @@ const Membership = () => {
           loadingIndicator
         ) : (
           <Grid item xs={12}>
-            <UsersList users={selectedUsers} />
+            <UsersList users={selectedUsers} onRoleChange={onRoleChange} />
           </Grid>
         )}
       </Grid>
