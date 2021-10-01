@@ -6,7 +6,7 @@ import { useListStyles } from './styles';
 
 interface Props {
   readonly users: UserGetResponse[];
-  readonly onRoleChange: () => void;
+  readonly onRoleChange: () => Promise<void>;
 }
 
 const UsersList = ({ users, onRoleChange }: Props) => {

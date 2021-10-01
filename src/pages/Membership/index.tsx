@@ -45,17 +45,20 @@ const Membership = () => {
     return { members, guests };
   }, []);
 
-  const fetchUsers = useCallback(async () => {
-    setIsLoading(true);
+  const fetchUsers = useCallback(
+    async (isInitialLoad = true) => {
+      setIsLoading(isInitialLoad);
 
-    const { data } = await UserService.getAll();
-    const { members, guests } = getByRole(data);
+      const { data } = await UserService.getAll();
+      const { members, guests } = getByRole(data);
 
-    setMembers(members);
-    setGuests(guests);
+      setMembers(members);
+      setGuests(guests);
 
-    setIsLoading(false);
-  }, [getByRole]);
+      setIsLoading(false);
+    },
+    [getByRole],
+  );
 
   const onTabChange = (event: React.ChangeEvent<{}>, newValue: TabsEnum) => {
     setTabValue(newValue);
@@ -65,9 +68,7 @@ const Membership = () => {
     fetchUsers();
   }, [fetchUsers]);
 
-  const onRoleChange = () => {
-    fetchUsers();
-  };
+  const onRoleChange = () => fetchUsers(false);
 
   const selectedUsers = useMemo(
     () => (tabValue === TabsEnum.Members ? members : guests),

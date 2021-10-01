@@ -30,7 +30,7 @@ import axios from 'axios';
 
 interface Props {
   readonly user: UserGetResponse;
-  readonly onRoleChange: () => void;
+  readonly onRoleChange: () => Promise<void>;
 }
 
 const UserCard = ({ user, onRoleChange }: Props) => {
@@ -51,7 +51,7 @@ const UserCard = ({ user, onRoleChange }: Props) => {
 
     try {
       await UserService.setMemberRole(user.id);
-      onRoleChange();
+      await onRoleChange();
       toast.success('Member access granted.');
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -66,7 +66,7 @@ const UserCard = ({ user, onRoleChange }: Props) => {
     setIsSubmitting(true);
     try {
       await UserService.setGuestRole(user.id);
-      onRoleChange();
+      await onRoleChange();
       toast.warning('Member access revoked.');
     } catch (error) {
       if (axios.isAxiosError(error)) {
