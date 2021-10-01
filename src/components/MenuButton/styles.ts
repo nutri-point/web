@@ -16,6 +16,10 @@ export const useStyles = makeStyles((theme: Theme) => {
       boxShadow: 'none',
       transition: `all 0.2s ease-in-out`,
       border: `1px solid ${alpha(theme.palette.primary.main, 0)}`,
+
+      [theme.breakpoints.down('sm')]: {
+        padding: 10,
+      },
     },
     buttonActive: {
       backgroundColor: `${alpha(theme.palette.primary.main, 0.15)}`,

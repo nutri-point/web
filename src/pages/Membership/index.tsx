@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 
-import {
-  CircularProgress,
-  Grid,
-  Tab,
-  Tabs,
-  Theme,
-  useMediaQuery,
-} from '@mui/material';
+import { CircularProgress, Grid, Tab, Tabs } from '@mui/material';
 import UsersList from './UsersList';
 
 import { UserGetResponse, UserService } from 'services';
@@ -16,6 +9,7 @@ import { Role } from 'services/constants';
 
 import { useStyles } from './styles';
 import { TabsEnum, TabValues } from './constants';
+import { useIsScreenSizeDown } from 'hooks/ScreenSize';
 
 const Membership = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,9 +19,7 @@ const Membership = () => {
 
   const classes = useStyles();
 
-  const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down('sm'),
-  );
+  const isSmallScreen = useIsScreenSizeDown('sm');
 
   const getByRole = useCallback((users: UserGetResponse[]) => {
     const members: UserGetResponse[] = [];

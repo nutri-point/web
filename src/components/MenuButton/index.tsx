@@ -3,6 +3,7 @@ import { Button, Grid } from '@mui/material';
 import { useStyles } from './styles';
 import { Link, useLocation } from 'react-router-dom';
 import classnames from 'classnames';
+import { useIsScreenSize } from 'hooks/ScreenSize';
 
 interface Props {
   readonly title: string;
@@ -16,9 +17,11 @@ const MenuItem = ({ icon: Icon, title, path }: Props) => {
 
   const isActive = pathname === path;
 
+  const isSmallScreen = useIsScreenSize('xs');
+
   return (
     <Grid container justifyContent="center" className={classes.container}>
-      <Grid item xs={8}>
+      <Grid item xs={isSmallScreen ? undefined : 8}>
         <Link to={path} className={classes.link}>
           <Button
             fullWidth
@@ -29,9 +32,11 @@ const MenuItem = ({ icon: Icon, title, path }: Props) => {
           >
             <Grid container justifyContent="space-around" alignItems="center">
               <Icon size={25} />
-              <Grid item xs={10}>
-                {title}
-              </Grid>
+              {!isSmallScreen && (
+                <Grid item sm={12} md={8} lg={10}>
+                  {title}
+                </Grid>
+              )}
             </Grid>
           </Button>
         </Link>
