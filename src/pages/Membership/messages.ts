@@ -11,6 +11,7 @@ const messages = {
   giveAccess: 'Grant access',
   revokeAccess: 'Revoke access',
   yearsOld: 'years',
+  searchPlaceholder: 'Search',
 };
 
 export default messages;

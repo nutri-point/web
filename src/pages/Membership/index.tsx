@@ -1,8 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 
-import { CircularProgress, Grid, Tab, Tabs } from '@mui/material';
-import UsersList from './UsersList';
+import {
+  CircularProgress,
+  Grid,
+  InputAdornment,
+  Tab,
+  Tabs,
+  TextField,
+} from '@mui/material';
+import { RiSearchLine as SearchIcon } from 'react-icons/ri';
+import UserTable from './UserTable';
 
 import { UserGetResponse, UserService } from 'services';
 import { Role } from 'services/constants';
@@ -10,12 +18,15 @@ import { Role } from 'services/constants';
 import { useStyles } from './styles';
 import { TabsEnum, TabValues } from './constants';
 import { useIsScreenSizeDown } from 'hooks/ScreenSize';
+import messages from './messages';
+import { hasSubstring } from 'helpers';
 
 const Membership = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [guests, setGuests] = useState<UserGetResponse[]>([]);
   const [members, setMembers] = useState<UserGetResponse[]>([]);
   const [tabValue, setTabValue] = useState<TabsEnum>(TabsEnum.Members);
+  const [searchValue, setSearchValue] = useState('');
 
   const classes = useStyles();
 
@@ -62,10 +73,27 @@ const Membership = () => {
 
   const onRoleChange = () => fetchUsers(false);
 
-  const selectedUsers = useMemo(
-    () => (tabValue === TabsEnum.Members ? members : guests),
-    [tabValue, members, guests],
+  const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  const areMembersSelected = useMemo(
+    () => tabValue === TabsEnum.Members,
+    [tabValue],
   );
+
+  const selectedUsers = useMemo(() => {
+    const selected = areMembersSelected ? members : guests;
+
+    const filtered = selected.filter(
+      (user) =>
+        hasSubstring(user.firstName, searchValue) ||
+        hasSubstring(user.lastName, searchValue) ||
+        hasSubstring(user.email, searchValue),
+    );
+
+    return filtered;
+  }, [areMembersSelected, members, guests, searchValue]);
 
   const loadingIndicator = (
     <Grid container justifyContent="center" style={{ paddingTop: '2rem' }}>
@@ -79,6 +107,7 @@ const Membership = () => {
     <Grid container>
       <Grid item xs={12}>
         <Tabs
+          className={classes.tabs}
           value={tabValue}
           onChange={onTabChange}
           variant={isSmallScreen ? 'fullWidth' : 'standard'}
@@ -99,8 +128,35 @@ const Membership = () => {
         {isLoading ? (
           loadingIndicator
         ) : (
-          <Grid item xs={12}>
-            <UsersList users={selectedUsers} onRoleChange={onRoleChange} />
+          <Grid container justifyContent="center">
+            <Grid item xs={12} sm={10}>
+              <Grid container justifyContent="flex-end">
+                <Grid item xs={12} md={6} lg={4} xl={3}>
+                  <TextField
+                    fullWidth
+                    className={classes.searchField}
+                    variant="outlined"
+                    placeholder={messages.searchPlaceholder}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    value={searchValue}
+                    onChange={onSearchValueChange}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <UserTable
+                users={selectedUsers}
+                areMembers={areMembersSelected}
+                onRoleChange={onRoleChange}
+              />
+            </Grid>
           </Grid>
         )}
       </Grid>

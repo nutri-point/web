@@ -1,4 +1,4 @@
-import { Grid, Theme, useMediaQuery } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 
 import Sidebar from 'components/Sidebar';
@@ -11,7 +11,7 @@ import { Routes } from 'helpers/constants';
 const Home = (): JSX.Element => {
   return (
     <Grid container>
-      <Grid item xs={1} sm={3}>
+      <Grid item xs={1} sm={3} xl={2}>
         <Sidebar />
       </Grid>
 

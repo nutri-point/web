@@ -3,6 +3,12 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    tabs: {
+      top: 0,
+      position: 'sticky',
+      backgroundColor: theme.palette.background.default,
+      zIndex: 999,
+    },
     tab: {
       [theme.breakpoints.up('xs')]: {
         minWidth: '0px',
@@ -10,6 +16,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     bigTab: {
       width: '15rem',
+    },
+    searchField: {
+      paddingRight: '2rem',
+      paddingLeft: '2rem',
+      paddingTop: '1rem',
     },
   }),
 );
@@ -46,6 +57,36 @@ export const useListStyles = makeStyles((theme: Theme) =>
     },
     card: {
       padding: '2rem',
+    },
+  }),
+);
+
+export const useTableStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      padding: '1rem 2rem',
+    },
+    headerRow: {
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
+    },
+    headerCell: {
+      fontWeight: 700,
+      position: 'sticky',
+      top: 0,
+    },
+  }),
+);
+
+export const useTableRowStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    row: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: alpha(theme.palette.primary.main, 0.05),
+      },
+      // hide last border
+      '&:last-child td, &:last-child th': {
+        border: 0,
+      },
     },
   }),
 );

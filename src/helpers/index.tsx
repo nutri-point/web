@@ -16,3 +16,6 @@ export const formatDate = (date: Date) =>
   moment(date).format(DEFAULT_DATE_FORMAT);
 
 export const getAge = (date: Date) => moment().diff(date, 'years');
+
+export const hasSubstring = (subject: string, substring: string) =>
+  subject.toLowerCase().includes(substring.toLowerCase());

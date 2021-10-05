@@ -23,6 +23,15 @@ const commonTheme: ThemeOptions = {
       fontWeight: 700,
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1900,
+    },
+  },
   shape: {
     borderRadius: 4,
   },
