@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       position: 'sticky',
       top: 0,
       borderRight: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+      overflowY: 'scroll',
 
       [theme.breakpoints.down('sm')]: {
         borderRight: 'none',

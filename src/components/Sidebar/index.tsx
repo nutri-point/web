@@ -30,7 +30,7 @@ const Sidebar = () => {
       direction="column"
       alignItems="center"
       className={classes.container}
-      style={{ overflowY: 'auto' }}
+      flexWrap="nowrap"
     >
       <Grid container>
         <ThemeToggle />

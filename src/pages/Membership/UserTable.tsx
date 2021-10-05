@@ -26,7 +26,7 @@ const UserTable = ({ users, areMembers, onRoleChange }: Props) => {
   return (
     <Grid container className={classes.container} justifyContent="center">
       <Grid item xs={12} sm={10}>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.tablePaper}>
           <Table>
             <TableHead>
               <TableRow className={classes.headerRow}>

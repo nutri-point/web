@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       position: 'sticky',
       backgroundColor: theme.palette.background.default,
       zIndex: 999,
+      transition: 'background-color 0.2s ease-in-out',
     },
     tab: {
       [theme.breakpoints.up('xs')]: {
@@ -65,6 +66,9 @@ export const useTableStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       padding: '1rem 2rem',
+    },
+    tablePaper: {
+      transition: 'background-color 0.2s ease-in-out',
     },
     headerRow: {
       borderBottom: `2px solid ${theme.palette.primary.main}`,
