@@ -1,9 +1,7 @@
 import { CircularProgress, Grid } from '@mui/material';
 import { useStyles } from './styles';
 
-interface Props {}
-
-const LoadingPage = (props: Props) => {
+const LoadingPage = () => {
   const classes = useStyles();
 
   return (

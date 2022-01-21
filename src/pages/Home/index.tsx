@@ -1,8 +1,12 @@
 import { Grid } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 
+// Components
 import Sidebar from 'components/Sidebar';
+
+// Pages
 import Membership from 'pages/Membership';
+import Meals from 'pages/Meals';
 import NotFound from 'pages/NotFound';
 
 // Helpers
@@ -24,7 +28,7 @@ const Home = (): JSX.Element => {
             path={Routes.FOOD_MENUS}
             component={() => <div>Menus</div>}
           />
-          <Route exact path={Routes.MEALS} component={() => <div>Meals</div>} />
+          <Route exact path={Routes.MEALS} component={Meals} />
           <Route exact path={Routes.MEMBERSHIP} component={Membership} />
           <Route component={NotFound} />
         </Switch>

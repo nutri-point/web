@@ -6,14 +6,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import { CssBaseline } from '@mui/material';
-import SignIn from 'pages/SignIn';
-import Home from 'pages/Home';
-import NotFound from 'pages/NotFound';
-import LoadingPage from 'pages/LoadingPage';
 import {
   withAuthentication,
   WithAuthenticationProps,
 } from 'components/Session';
+
+// Pages
+import SignIn from 'pages/SignIn';
+import Home from 'pages/Home';
+import NotFound from 'pages/NotFound';
+import LoadingPage from 'pages/LoadingPage';
 
 // Helpers
 import { Routes } from 'helpers/constants';

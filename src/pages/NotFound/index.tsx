@@ -1,7 +1,5 @@
-interface Props {}
-
 // TODO
-const NotFound = (props: Props) => {
+const NotFound = () => {
   return <div>404 Not Found</div>;
 };
 

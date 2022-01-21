@@ -14,11 +14,11 @@ import { UserGetResponse } from 'services';
 import { useTableStyles } from './styles';
 import UserTableRow from './UserTableRow';
 
-interface Props {
+type Props = {
   readonly users: UserGetResponse[];
   readonly areMembers: boolean;
   readonly onRoleChange: () => Promise<void>;
-}
+};
 
 const UserTable = ({ users, areMembers, onRoleChange }: Props) => {
   const classes = useTableStyles();

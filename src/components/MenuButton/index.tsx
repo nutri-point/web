@@ -5,11 +5,11 @@ import { Link, useLocation } from 'react-router-dom';
 import classnames from 'classnames';
 import { useIsScreenSize } from 'hooks/ScreenSize';
 
-interface Props {
+type Props = {
   readonly title: string;
   readonly icon: IconType;
   readonly path: string;
-}
+};
 
 const MenuItem = ({ icon: Icon, title, path }: Props) => {
   const classes = useStyles();

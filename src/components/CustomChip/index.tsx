@@ -2,11 +2,11 @@ import { alpha, Grid, Typography } from '@mui/material';
 import { IconType } from 'react-icons/lib';
 import { useStyles } from './styles';
 
-interface Props {
+type Props = {
   readonly color: string;
   readonly Icon: IconType;
   readonly label: string;
-}
+};
 
 const CustomChip = ({ color, Icon, label }: Props) => {
   const classes = useStyles();

@@ -14,5 +14,6 @@ api.interceptors.request.use((config) => {
 export { default as AuthenticationService } from './authentication';
 export { default as GoalService } from './goal';
 export { default as UserService } from './user';
+export { default as MealService } from './meal';
 
 export * from './responses';

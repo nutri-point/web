@@ -21,10 +21,10 @@ import { formatDate } from 'helpers';
 import { Role } from 'services/constants';
 import messages from './messages';
 
-interface Props {
+type Props = {
   readonly user: UserGetResponse;
   readonly onRoleChange: () => Promise<void>;
-}
+};
 
 const UserTableRow = ({ user, onRoleChange }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);

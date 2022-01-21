@@ -1,15 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
-
-import {
-  CircularProgress,
-  Grid,
-  InputAdornment,
-  Tab,
-  Tabs,
-  TextField,
-} from '@mui/material';
 import { RiSearchLine as SearchIcon } from 'react-icons/ri';
+
+import { Grid, InputAdornment, Tab, Tabs, TextField } from '@mui/material';
+import LoadingIndicator from 'components/LoadingIndicator';
 import UserTable from './UserTable';
 
 import { UserGetResponse, UserService } from 'services';
@@ -95,14 +89,6 @@ const Membership = () => {
     return filtered;
   }, [areMembersSelected, members, guests, searchValue]);
 
-  const loadingIndicator = (
-    <Grid container justifyContent="center" style={{ paddingTop: '2rem' }}>
-      <Grid item>
-        <CircularProgress size="3rem" thickness={5} />
-      </Grid>
-    </Grid>
-  );
-
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -126,7 +112,7 @@ const Membership = () => {
           ))}
         </Tabs>
         {isLoading ? (
-          loadingIndicator
+          <LoadingIndicator />
         ) : (
           <Grid container justifyContent="center">
             <Grid item xs={12} sm={10}>

@@ -28,10 +28,10 @@ import colors from 'components/Theme/colors';
 import { useState } from 'react';
 import axios from 'axios';
 
-interface Props {
+type Props = {
   readonly user: UserGetResponse;
   readonly onRoleChange: () => Promise<void>;
-}
+};
 
 const UserCard = ({ user, onRoleChange }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);

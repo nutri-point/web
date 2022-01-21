@@ -4,10 +4,10 @@ import UserCard from './UserCard';
 
 import { useListStyles } from './styles';
 
-interface Props {
+type Props = {
   readonly users: UserGetResponse[];
   readonly onRoleChange: () => Promise<void>;
-}
+};
 
 const UsersList = ({ users, onRoleChange }: Props) => {
   const classes = useListStyles();

@@ -2,6 +2,7 @@ export const ApiRoutes = {
   LogIn: 'login',
   Goal: 'goal',
   User: 'user',
+  Meal: 'meal',
 };
 
 export enum Role {
